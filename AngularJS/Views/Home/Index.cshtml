@@ -2,30 +2,61 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<h1> Hello angular</h1>
+<div ng-init=" num1=1; num2=1; myname='Jone Doe';">
+    <p> Basic angular calc 1 + 2 = {{1+2 }}</p>
+    <input type="number" name="num1" ng-model="num1" value="0" />
+    <input type="number" name="num2" ng-model="num2" value="0" />
+    <hr />
+    <p> {{num1}} + {{num2}} = {{num1 + num2}}</p>
+    <p> {{num1}} - {{num2}} = {{num1 - num2}}</p>
+    <p> {{num1}} * {{num2}} = {{num1 * num2}}</p>
+    <p> {{num1}} / {{num2}} = {{num1 / num2}}</p>
+    <p>{{num1}} modulus {{num2}} = {{num1% num2}}</p>
+    <hr />
+    <input type="text" name="num1" ng-model="myname" />
+    {{myname}}
+    <input type="text" name="num2" ng-model="myname" />
+    <hr />
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    <div ng-controller="myCtrl">
+
+        First Name: <input type="text" ng-model="firstName"><br>
+        Last Name: <input type="text" ng-model="lastName"><br>
+        <br>
+        Full Name: {{firstName + " " + lastName}}
+
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    <hr />
+
+    <div ng-controller="myCars">
+        <h3>My Cars</h3>
+        <input type="text" ng-model="newCar" placeholder="Enter  new car to add to the list" />
+        <button ng-click="addCar()" ng-disabled="newCar.length <1">Add</button>
+        <ol>
+            <li ng-repeat="foo in cars">{{foo}}</li>
+        </ol>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+
+    <script>
+        var app = angular.module('angularDemo', []);
+
+        app.controller('myCtrl', function ($scope) {
+            $scope.firstName = "John";
+            $scope.lastName = "Doe";
+        });
+
+        app.controller('myCars', function ($scope) {
+            $scope.cars = ["SAAB 900", "VOLVO 740"];
+            $scope.newCar;
+
+            $scope.addCar = function () {
+                var item = angular.copy($scope.newCar);
+                $scope.cars.push(item);
+                $scope.newCar = "";
+            }
+
+
+        });
+    </script>
 </div>
